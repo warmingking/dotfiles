@@ -74,7 +74,7 @@ zi from'gh-r' for \
   sbin'**/rg -> rg' BurntSushi/ripgrep
 
 zi for \
-  sbin'httpstat.sh -> httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
+  mv'httpstat.sh -> httpstat' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
   has'tmux' sbin'bin/xpanes' greymd/tmux-xpanes
 
 # misc
