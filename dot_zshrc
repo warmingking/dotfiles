@@ -1,0 +1,86 @@
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
+  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+source "$HOME/.zi/bin/zi.zsh"
+# autoload -Uz _zi
+# (( ${+_comps} )) && _comps[zi]=_zi
+# # examples here -> https://z-shell.pages.dev/docs/gallery/collection
+# zicompinit # <- https://z-shell.pages.dev/docs/gallery/collection#minimal
+
+# theme and prompt
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+# Load prompt if terminal has least 256 colors.
+if [ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]; then
+  zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
+  zi light romkatv/powerlevel10k
+fi
+
+# annexes ( https://z.digitalclouds.dev/docs/ecosystem/annexes )
+zi light z-shell/z-a-bin-gem-node
+zi light z-shell/z-a-patch-dl
+
+# OMZ
+zi for \
+  OMZL::functions.zsh \
+  OMZL::misc.zsh \
+  OMZL::completion.zsh \
+  OMZL::history.zsh
+
+zi wait lucid for \
+  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    z-shell/F-Sy-H \
+  blockf \
+    zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+
+zi for \
+  atclone'mkdir -p $ZPFX/{bin}' atpull'%atclone' \
+  from'gh-r' dl'
+      https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf_completion;
+      https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
+  id-as'junegunn/fzf' nocompile pick'/dev/null' sbin'fzf' src'key-bindings.zsh' \
+    @junegunn/fzf \
+  Aloxaf/fzf-tab
+
+zi for \
+ from'gh-r' sbin'**/exa -> exa' \
+    ogham/exa \
+ blockf \
+    https://github.com/ogham/exa/blob/master/completions/zsh/_exa
+
+zi for \
+ from'gh-r' sbin \
+    twpayne/chezmoi \
+ blockf mv'chezmoi.zsh -> _chezmoi'\
+    https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
+
+zi for \
+  from'gh-r' sbin'docker* -> docker-compose' \
+    docker/compose \
+  blockf \
+    https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+zi from'gh-r' for \
+  mv'fd* -> fd' sbin'**/fd -> fd' @sharkdp/fd \
+  mv'bat* -> bat' sbin'**/bat -> bat' @sharkdp/bat \
+  sbin'**/rg -> rg' BurntSushi/ripgrep
+
+zi for \
+  sbin'httpstat.sh -> httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
+  has'tmux' sbin'bin/xpanes' greymd/tmux-xpanes
+
+# misc
+zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
+zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+
+autoload -Uz _zi
+zi compinit
+zi cdreplay -q
