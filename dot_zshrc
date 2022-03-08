@@ -6,10 +6,6 @@ if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
     print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 source "$HOME/.zi/bin/zi.zsh"
-# autoload -Uz _zi
-# (( ${+_comps} )) && _comps[zi]=_zi
-# # examples here -> https://z-shell.pages.dev/docs/gallery/collection
-# zicompinit # <- https://z-shell.pages.dev/docs/gallery/collection#minimal
 
 # theme and prompt
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
@@ -33,7 +29,7 @@ zi for \
   OMZL::completion.zsh \
   OMZL::history.zsh
 
-zi wait lucid for \
+zi for \
   atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     z-shell/F-Sy-H \
   blockf \
@@ -51,36 +47,32 @@ zi for \
   Aloxaf/fzf-tab
 
 zi for \
- from'gh-r' sbin'**/exa -> exa' \
-    ogham/exa \
- blockf \
-    https://github.com/ogham/exa/blob/master/completions/zsh/_exa
+  from'gh-r' sbin'**/exa -> exa' ogham/exa \
+  blockf https://github.com/ogham/exa/blob/master/completions/zsh/_exa
 
 zi for \
- from'gh-r' sbin \
-    twpayne/chezmoi \
- blockf mv'chezmoi.zsh -> _chezmoi'\
-    https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
+  from'gh-r' sbin twpayne/chezmoi \
+  blockf mv'chezmoi.zsh -> _chezmoi' pick'/dev/null' https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
 
 zi for \
-  from'gh-r' sbin'docker* -> docker-compose' \
-    docker/compose \
-  blockf \
-    https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+  from'gh-r' sbin'docker* -> docker-compose' docker/compose \
+  blockf https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
 zi from'gh-r' for \
   mv'fd* -> fd' sbin'**/fd -> fd' @sharkdp/fd \
   mv'bat* -> bat' sbin'**/bat -> bat' @sharkdp/bat \
+  atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
   sbin'**/rg -> rg' BurntSushi/ripgrep
 
 zi for \
-  mv'httpstat.sh -> httpstat' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
+  mv'httpstat.sh -> httpstat' pick'/dev/null' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
   has'tmux' sbin'bin/xpanes' greymd/tmux-xpanes
 
 # misc
-zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
+zi ice as'completion' blockf mv'git-completion.zsh -> _git'
 zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
 
 autoload -Uz _zi
-zi compinit
-zi cdreplay -q
+(( ${+_comps} )) && _comps[zi]=_zi
+zicompinit
+zicdreplay
