@@ -48,15 +48,15 @@ zi for \
 
 zi for \
   from'gh-r' sbin'**/exa -> exa' ogham/exa \
-  blockf https://github.com/ogham/exa/blob/master/completions/zsh/_exa
+  as'completion' blockf https://github.com/ogham/exa/blob/master/completions/zsh/_exa
 
 zi for \
-  from'gh-r' sbin twpayne/chezmoi \
-  blockf mv'chezmoi.zsh -> _chezmoi' pick'/dev/null' https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
+  from'gh-r' sbin'chezmoi* -> chezmoi' twpayne/chezmoi \
+  as'completion' blockf mv'chezmoi.zsh -> _chezmoi' https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
 
 zi for \
   from'gh-r' sbin'docker* -> docker-compose' docker/compose \
-  blockf https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+  as'completion' blockf https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
 zi from'gh-r' for \
   mv'fd* -> fd' sbin'**/fd -> fd' @sharkdp/fd \
