@@ -38,12 +38,10 @@ zi for \
     zsh-users/zsh-autosuggestions
 
 zi for \
-  atclone'mkdir -p $ZPFX/{bin}' atpull'%atclone' \
   from'gh-r' dl'
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf_completion;
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
-  id-as'junegunn/fzf' nocompile pick'/dev/null' sbin'fzf' src'key-bindings.zsh' \
-    @junegunn/fzf \
+  sbin'fzf' src'key-bindings.zsh' junegunn/fzf \
   Aloxaf/fzf-tab
 
 zi for \
@@ -59,10 +57,12 @@ zi for \
   as'completion' blockf https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
 zi from'gh-r' for \
-  mv'fd* -> fd' sbin'**/fd -> fd' @sharkdp/fd \
-  mv'bat* -> bat' sbin'**/bat -> bat' @sharkdp/bat \
+  sbin'**/fd -> fd' @sharkdp/fd \
+  sbin'**/bat -> bat' @sharkdp/bat \
+  sbin'**/delta -> delta' dandavison/delta \
   atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
-  sbin'**/rg -> rg' BurntSushi/ripgrep
+  sbin'**/rg -> rg' BurntSushi/ripgrep \
+  sbin'**/clangd -> clangd' clangd/clangd
 
 zi for \
   mv'httpstat.sh -> httpstat' pick'/dev/null' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
