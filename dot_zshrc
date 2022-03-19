@@ -62,6 +62,7 @@ zi from'gh-r' for \
   mv'fd* -> fd' sbin'**/fd -> fd' @sharkdp/fd \
   mv'bat* -> bat' sbin'**/bat -> bat' @sharkdp/bat \
   atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
+  bpick'*tar.gz'  atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
   sbin'**/rg -> rg' BurntSushi/ripgrep
 
 zi for \
