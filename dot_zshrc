@@ -62,6 +62,7 @@ zi from'gh-r' for \
   sbin'**/delta -> delta' dandavison/delta \
   atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
   sbin'**/rg -> rg' BurntSushi/ripgrep \
+  bpick'*tar.gz'  atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
   sbin'**/clangd -> clangd' clangd/clangd
 
 zi for \
