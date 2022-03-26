@@ -62,8 +62,12 @@ zi from'gh-r' for \
   sbin'**/delta -> delta' dandavison/delta \
   atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
   sbin'**/rg -> rg' BurntSushi/ripgrep \
-  bpick'*tar.gz'  atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
+  bpick'*tar.gz' atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
   sbin'**/clangd -> clangd' clangd/clangd
+
+zi for \
+  as'null' src'asdf.sh' asdf-vm/asdf \
+  as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
 zi for \
   mv'httpstat.sh -> httpstat' pick'/dev/null' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
