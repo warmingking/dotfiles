@@ -63,7 +63,9 @@ zi from'gh-r' for \
   atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
   sbin'**/rg -> rg' BurntSushi/ripgrep \
   bpick'*tar.gz' atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
-  sbin'**/clangd -> clangd' clangd/clangd
+  sbin'**/clangd -> clangd' clangd/clangd \
+  sbin'**/lua-language-server' sumneko/lua-language-server \
+  bpick'*.tar.gz' sbin'**/bin/nvim -> nvim' neovim/neovim
 
 zi for \
   as'null' src'asdf.sh' asdf-vm/asdf \
