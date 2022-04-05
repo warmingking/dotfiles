@@ -65,6 +65,7 @@ zi from'gh-r' for \
   bpick'*tar.gz' atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
   sbin'**/clangd -> clangd' clangd/clangd \
   sbin'**/lua-language-server' sumneko/lua-language-server \
+  sbin'**/lazygit' jesseduffield/lazygit \
   bpick'*.tar.gz' sbin'**/bin/nvim -> nvim' neovim/neovim
 
 zi for \

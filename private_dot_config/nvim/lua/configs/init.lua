@@ -1,2 +1,8 @@
 require("configs/c_nvim-lspconfig")
 require("configs/c_telescope")
+require("configs/c_vim-gutentags")
+require("configs/c_toggleterm")
+require("configs/c_nvim-tree")
+require("configs/c_indent_blankline")
+require("configs/c_bufferline")
+require("configs/c_lualine")
