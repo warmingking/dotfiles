@@ -29,20 +29,15 @@ zi for \
   OMZL::completion.zsh \
   OMZL::history.zsh
 
-zi for \
-  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    z-shell/F-Sy-H \
-  blockf \
-    zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions
+zi ice atload"!_zsh_autosuggest_start"
+zi load zsh-users/zsh-autosuggestions
 
 zi for \
   from'gh-r' dl'
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf_completion;
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
   sbin'fzf' src'key-bindings.zsh' junegunn/fzf \
-  Aloxaf/fzf-tab
+  blockf Aloxaf/fzf-tab
 
 zi for \
   from'gh-r' sbin'**/exa -> exa' ogham/exa \
@@ -74,7 +69,7 @@ zi for \
 
 zi for \
   mv'httpstat.sh -> httpstat' pick'/dev/null' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
-  has'tmux' sbin'bin/xpanes' greymd/tmux-xpanes
+  has'tmux' blockf sbin'bin/xpanes' greymd/tmux-xpanes
 
 # misc
 zi ice as'completion' blockf mv'git-completion.zsh -> _git'
