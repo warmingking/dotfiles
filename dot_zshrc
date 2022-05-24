@@ -8,7 +8,7 @@ fi
 source "$HOME/.zi/bin/zi.zsh"
 
 # theme and prompt
-[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+[[ $COLORTERM = *(24bit|truecolor)* ]] || is-at-least 5.7.1 && zmodload zsh/nearcolor
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -37,7 +37,7 @@ zi for \
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf_completion;
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
   sbin'fzf' src'key-bindings.zsh' junegunn/fzf \
-  blockf Aloxaf/fzf-tab
+  if"is-at-least 5.7.1" blockf Aloxaf/fzf-tab
 
 zi for \
   from'gh-r' sbin'**/exa -> exa' ogham/exa \
