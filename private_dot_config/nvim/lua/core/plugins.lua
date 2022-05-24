@@ -16,6 +16,10 @@ vim.cmd([[
   augroup end
 ]])
 
+require('packer').init {
+  auto_reload_compiled = false;
+}
+
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use {'wbthomason/packer.nvim'}
