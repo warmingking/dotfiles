@@ -29,15 +29,17 @@ zi for \
   OMZL::completion.zsh \
   OMZL::history.zsh
 
-zi ice atload"!_zsh_autosuggest_start"
-zi load zsh-users/zsh-autosuggestions
-
+# fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets,
+# such as zsh-autosuggestions or fast-syntax-highlighting!!
 zi for \
   from'gh-r' dl'
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf_completion;
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
   sbin'fzf' src'key-bindings.zsh' junegunn/fzf \
   if"is-at-least 5.7.1" blockf Aloxaf/fzf-tab
+
+zi ice atload"!_zsh_autosuggest_start"
+zi load zsh-users/zsh-autosuggestions
 
 zi for \
   from'gh-r' sbin'**/exa -> exa' ogham/exa \
