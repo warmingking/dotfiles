@@ -23,7 +23,7 @@ require('packer').init {
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use {'wbthomason/packer.nvim'}
-  use {'9mm/vim-closer'}
+  use {'rstacruz/vim-closer'}
   use {'andymass/vim-matchup', event = 'VimEnter'}
   use {
     'iamcco/markdown-preview.nvim',
@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
       'L3MON4D3/LuaSnip'
     }
   }
-  use {"akinsho/toggleterm.nvim"}
+  use {"akinsho/toggleterm.nvim", branch = "main"}
   use {"lukas-reineke/indent-blankline.nvim"}
   use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
   use {'alker0/chezmoi.vim'}

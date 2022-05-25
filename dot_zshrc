@@ -61,9 +61,9 @@ zi from'gh-r' for \
   sbin'**/rg -> rg' BurntSushi/ripgrep \
   bpick'*tar.gz' atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
   sbin'**/clangd -> clangd' clangd/clangd \
-  sbin'**/lua-language-server' sumneko/lua-language-server \
+  bpick'*x64.tar.gz' sbin'**/lua-language-server' sumneko/lua-language-server \
   sbin'**/lazygit' jesseduffield/lazygit \
-  bpick'*.tar.gz' sbin'**/bin/nvim -> nvim' neovim/neovim
+  bpick'*tar.gz' ver'v0.7.0' sbin'**/bin/nvim -> nvim' neovim/neovim
 
 zi for \
   as'null' src'asdf.sh' asdf-vm/asdf \
