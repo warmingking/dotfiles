@@ -3,6 +3,8 @@ if not status_ok then
   return
 end
 
+vim.opt.splitright = true
+
 vim.g.nvim_tree_icons = {
   default = "",
   symlink = "",
@@ -89,7 +91,6 @@ nvim_tree.setup {
     height = 30,
     hide_root_folder = false,
     side = "left",
-    auto_resize = true,
     mappings = {
       custom_only = false,
       list = {

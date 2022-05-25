@@ -3,11 +3,24 @@ if not status_ok then
   return
 end
 
+-- key map
+vim.api.nvim_set_keymap('n', 'b[',  [[:BufferLineCyclePrev<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'b]',  [[:BufferLineCycleNext<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gb',  [[:BufferLinePick<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'bx',  [[:BufferLinePickClose<CR>]], { noremap = true, silent = true })
+
 local colors = require('dracula').colors()
 
 bufferline.setup {
    options = {
-      offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+      offsets = {
+        {
+          filetype = "NvimTree",
+          text = "File Explorer",
+          highlight = "Directory",
+          -- padding = 1
+        }
+      },
       buffer_close_icon = "",
       modified_icon = "",
       close_icon = "",

@@ -43,8 +43,7 @@ return require('packer').startup(function(use)
   use {'kkoomen/vim-doge', run = function() vim.fn['doge#install']() end}
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true},
-    config = function() require'nvim-tree'.setup {} end
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
   use {
     'nvim-telescope/telescope.nvim',
