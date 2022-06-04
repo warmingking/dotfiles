@@ -26,20 +26,23 @@ zi light z-shell/z-a-patch-dl
 zi for \
   OMZL::functions.zsh \
   OMZL::misc.zsh \
-  OMZL::completion.zsh \
   OMZL::history.zsh
 
 # fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets,
 # such as zsh-autosuggestions or fast-syntax-highlighting!!
 zi for \
   from'gh-r' dl'
-      https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf_completion;
       https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
   sbin'fzf' src'key-bindings.zsh' junegunn/fzf \
-  if"is-at-least 5.7.1" blockf Aloxaf/fzf-tab
+  as'completion' blockf mv'completion.zsh -> _fzf' https://github.com/junegunn/fzf/blob/master/shell/completion.zsh \
+  if"is-at-least 5.7.1" Aloxaf/fzf-tab
 
-zi ice atload"!_zsh_autosuggest_start"
-zi load zsh-users/zsh-autosuggestions
+zi ice as'completion' blockf mv'git-completion.zsh -> _git'
+zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+
+zi for \
+  as'null' src'asdf.sh' asdf-vm/asdf \
+  as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
 zi for \
   from'gh-r' sbin'**/exa -> exa' ogham/exa \
@@ -50,32 +53,36 @@ zi for \
   as'completion' blockf mv'chezmoi.zsh -> _chezmoi' https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
 
 zi for \
-  from'gh-r' sbin'docker* -> docker-compose' docker/compose \
-  as'completion' blockf https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+  from'gh-r' sbin'docker* -> docker-compose' docker/compose
+
+zi for \
+  from'gh-r' sbin'**/fd -> fd' @sharkdp/fd \
+  as'completion' blockf https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
+
+zi for \
+  from'gh-r' sbin'**/rg -> rg' BurntSushi/ripgrep \
+  as'completion' blockf https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg
+
+zi for \
+  from'gh-r' sbin'yq* -> yq' mikefarah/yq \
+  as'completion' blockf atclone'yq shell-completion zsh > _yq; zi creinstall yq--completion' atpull'%atclone' run-atpull id-as'yq--completion' z-shell/0
+
+zi for \
+  from'gh-r' bpick'*tar.gz' sbin'**/gh -> gh' cli/cli \
+  as'completion' blockf atclone'gh completion -s zsh > _gh; zi creinstall gh--completion' atpull'%atclone' run-atpull id-as'gh--completion' z-shell/0
+
+zi for \
+  atclone'curl https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz | tar zxf -' atpull'%atclone' sbin'**/helm -> helm' id-as'helm' z-shell/0 \
+  as'completion' blockf atclone'helm completion zsh > _helm; zi creinstall helm--completion' atpull'%atclone' run-atpull id-as'helm--completion' z-shell/0
 
 zi from'gh-r' for \
-  sbin'**/fd -> fd' @sharkdp/fd \
   sbin'**/bat -> bat' @sharkdp/bat \
   sbin'**/delta -> delta' dandavison/delta \
-  atclone'./yq* shell-completion zsh > _yq' atpull'%atclone' sbin'yq* -> yq' mikefarah/yq \
-  sbin'**/rg -> rg' BurntSushi/ripgrep \
-  bpick'*tar.gz' atclone'**/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin'**/bin/gh -> gh' cli/cli \
   sbin'**/clangd -> clangd' clangd/clangd \
   bpick'*x64.tar.gz' sbin'**/lua-language-server' sumneko/lua-language-server \
   sbin'**/lazygit' jesseduffield/lazygit \
-  bpick'*tar.gz' ver'v0.7.0' sbin'**/bin/nvim -> nvim' neovim/neovim
-
-zi for \
-  as'null' src'asdf.sh' asdf-vm/asdf \
-  as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
-
-zi for \
-  mv'httpstat.sh -> httpstat' pick'/dev/null' sbin'httpstat' https://github.com/b4b4r07/httpstat/blob/master/httpstat.sh \
-  has'tmux' blockf sbin'bin/xpanes' greymd/tmux-xpanes
-
-# misc
-zi ice as'completion' blockf mv'git-completion.zsh -> _git'
-zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+  bpick'*tar.gz' ver'v0.7.0' sbin'**/bin/nvim -> nvim' neovim/neovim \
+  has'tmux' sbin'bin/xpanes' greymd/tmux-xpanes
 
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
