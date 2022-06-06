@@ -41,6 +41,9 @@ zi ice as'completion' blockf mv'git-completion.zsh -> _git'
 zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
 
 zi for \
+  has'kubectl' as'completion' blockf atclone'kubectl completion zsh > _kubectl; zi creinstall kubectl--completion' atpull'%atclone' run-atpull id-as'kubectl--completion' z-shell/0
+
+zi for \
   as'null' src'asdf.sh' asdf-vm/asdf \
   as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
@@ -72,8 +75,8 @@ zi for \
   as'completion' blockf atclone'gh completion -s zsh > _gh; zi creinstall gh--completion' atpull'%atclone' run-atpull id-as'gh--completion' z-shell/0
 
 zi for \
-  atclone'curl https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz | tar zxf -' atpull'%atclone' sbin'**/helm -> helm' id-as'helm' z-shell/0 \
-  as'completion' blockf atclone'helm completion zsh > _helm; zi creinstall helm--completion' atpull'%atclone' run-atpull id-as'helm--completion' z-shell/0
+  from'gh-r' sbin'**/flux -> flux' fluxcd/flux2 \
+  has'flux' as'completion' blockf atclone'flux completion zsh > _flux; zi creinstall flux--completion' atpull'%atclone' run-atpull id-as'flux--completion' z-shell/0
 
 zi from'gh-r' for \
   sbin'**/bat -> bat' @sharkdp/bat \
@@ -81,8 +84,7 @@ zi from'gh-r' for \
   sbin'**/clangd -> clangd' clangd/clangd \
   bpick'*x64.tar.gz' sbin'**/lua-language-server' sumneko/lua-language-server \
   sbin'**/lazygit' jesseduffield/lazygit \
-  bpick'*tar.gz' ver'v0.7.0' sbin'**/bin/nvim -> nvim' neovim/neovim \
-  has'tmux' sbin'bin/xpanes' greymd/tmux-xpanes
+  bpick'*tar.gz' ver'v0.7.0' sbin'**/bin/nvim -> nvim' neovim/neovim
 
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
