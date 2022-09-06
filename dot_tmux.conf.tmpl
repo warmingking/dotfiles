@@ -3,6 +3,8 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
+set-option -g default-shell /usr/bin/zsh
+
 # Setting the delay between prefix and command
 set -sg escape-time 0
 
@@ -20,10 +22,13 @@ setw -g mode-keys vi
 
 # Vi copy mode: pbcopy is installed on macOS by default, on Linux xclip needs to be installed
 bind-key -T copy-mode-vi v send -X begin-selection
-if-shell "uname | grep -q Darwin" "bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'pbcopy'"
-if-shell "uname | grep -q Darwin" "bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'pbcopy'"
-if-shell "uname | grep -q Linux" "bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -filter -selection primary | xclip -in -selection clipboard > /dev/null'"
-if-shell "uname | grep -q Linux" "bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xclip -in -filter -selection primary | xclip -in -selection clipboard > /dev/null'"
+{{- if eq .chezmoi.os "darwin" }}
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'pbcopy'
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'pbcopy'
+{{ else if eq .chezmoi.os "linux" }}
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -filter -selection primary | xclip -in -selection clipboard > /dev/null'
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xclip -in -filter -selection primary | xclip -in -selection clipboard > /dev/null'
+{{- end }}
 
 # Splitting panes with | and -
 bind | split-window -h
@@ -45,10 +50,10 @@ set -g default-terminal "tmux-256color"
 set -g status-style fg=black,bg=white
 
 # Set the color of the window list
-setw -g window-status-style fg=blue,bold
+setw -g window-status-style fg=blue
 
 # Set the color of the active window
-setw -g window-status-current-style fg=white,bold,bg=red
+setw -g window-status-current-style fg="#080808",bold,bg="#00afff" # dark gray, light blue
 
 # Status line left side
 set -g status-left "#[fg=blue,bold]#[bg=green][#S]"
@@ -66,13 +71,13 @@ set -g status-justify centre
 set -g message-style fg=blue,bright,bg=white
 
 # Use tmuxline.vim snapshot file
-if-shell "test -f ~/.config/tmux/tmuxline.snapshot" "source ~/.config/tmux/tmuxline.snapshot"
+# if-shell "test -f ~/.config/tmux/tmuxline.snapshot" "source ~/.config/tmux/tmuxline.snapshot"
 
 # Update $DISPLAY and/or tmuxline
-set-hook -g client-attached 'run-shell ~/.config/tmux/update_display_tmuxline.sh'
-set-hook -g client-session-changed 'run-shell ~/.config/tmux/update_tmuxline.sh'
+# set-hook -g client-attached 'run-shell ~/.config/tmux/update_display_tmuxline.sh'
+# set-hook -g client-session-changed 'run-shell ~/.config/tmux/update_tmuxline.sh'
 set -g focus-events on
-set-hook -g pane-focus-in 'run-shell ~/.config/tmux/update_tmuxline.sh'
+# set-hook -g pane-focus-in 'run-shell ~/.config/tmux/update_tmuxline.sh'
 
 # True colour support
 set -as terminal-overrides ",xterm*:Tc"
