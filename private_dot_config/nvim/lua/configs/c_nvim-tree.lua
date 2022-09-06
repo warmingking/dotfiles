@@ -5,37 +5,6 @@ end
 
 vim.opt.splitright = true
 
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "",
-    staged = "S",
-    unmerged = "",
-    renamed = "➜",
-    deleted = "",
-    untracked = "U",
-    ignored = "◌",
-  },
-  folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-  },
-}
-
-vim.g.nvim_tree_git_hl = true
-vim.g.nvim_tree_root_folder_modifier = ":t"
-vim.g.vim_tree_show_icons = {
-  git = 1,
-  folders = 1,
-  files = 1,
-  folder_arrows = 1,
-  tree_width = 30,
-}
-
 nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
@@ -48,18 +17,12 @@ nvim_tree.setup {
   open_on_tab = false,
   hijack_cursor = false,
   update_cwd = true,
-  update_to_buf_dir = {
+  hijack_directories = {
     enable = true,
     auto_open = true,
   },
   diagnostics = {
     enable = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    },
   },
   update_focused_file = {
     enable = true,
@@ -82,7 +45,7 @@ nvim_tree.setup {
   actions = {
     open_file = {
         window_picker = { enable = true },
-	quit_on_open = false,
+        quit_on_open = false,
         resize_window = true
     }
   },
