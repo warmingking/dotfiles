@@ -44,7 +44,7 @@ zi for \
   has'kubectl' as'completion' blockf atclone'kubectl completion zsh > _kubectl; zi creinstall kubectl--completion' atpull'%atclone' run-atpull id-as'kubectl--completion' z-shell/0
 
 zi for \
-  as'null' src'asdf.sh' asdf-vm/asdf \
+  as'null' src'asdf.sh' @asdf-vm/asdf \
   as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
 zi for \
