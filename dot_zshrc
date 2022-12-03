@@ -1,98 +1,97 @@
-if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
-  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
-  command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
-  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin" && \
-    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-    print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
-source "$HOME/.zi/bin/zi.zsh"
-
-# theme and prompt
-[[ $COLORTERM = *(24bit|truecolor)* ]] || is-at-least 5.7.1 && zmodload zsh/nearcolor
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-# Load prompt if terminal has least 256 colors.
-if [ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]; then
-  zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
-  zi light romkatv/powerlevel10k
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
 fi
 
-# annexes ( https://z.digitalclouds.dev/docs/ecosystem/annexes )
-zi light z-shell/z-a-bin-gem-node
-zi light z-shell/z-a-patch-dl
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# OMZ
-zi for \
-  OMZL::functions.zsh \
-  OMZL::misc.zsh \
-  OMZL::history.zsh
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load starship theme
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh" # pull behavior same as clone, source init.zsh
+zinit light starship/starship
 
 # fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets,
 # such as zsh-autosuggestions or fast-syntax-highlighting!!
-zi for \
+zinit for \
   from'gh-r' dl'
-      https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;' \
+      https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh;' \
   sbin'fzf' src'key-bindings.zsh' junegunn/fzf \
   as'completion' blockf mv'completion.zsh -> _fzf' https://github.com/junegunn/fzf/blob/master/shell/completion.zsh \
   if"is-at-least 5.7.1" Aloxaf/fzf-tab
 
-zi ice as'completion' blockf mv'git-completion.zsh -> _git'
-zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+zinit ice as'completion' blockf mv'git-completion.zsh -> _git'
+zinit snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
 
-zi for \
-  has'kubectl' as'completion' blockf atclone'kubectl completion zsh > _kubectl; zi creinstall kubectl--completion' atpull'%atclone' run-atpull id-as'kubectl--completion' z-shell/0
+zinit for \
+  has'kubectl' as'completion' blockf atclone'kubectl completion zsh > _kubectl; zinit creinstall kubectl--completion' atpull'%atclone' run-atpull id-as'kubectl--completion' z-shell/0
 
-zi for \
+zinit for \
   as'null' src'asdf.sh' @asdf-vm/asdf \
   as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
-zi for \
+zinit for \
   from'gh-r' sbin'**/exa -> exa' ogham/exa \
   as'completion' blockf https://github.com/ogham/exa/blob/master/completions/zsh/_exa
 
-zi for \
+zinit for \
   from'gh-r' sbin'chezmoi* -> chezmoi' twpayne/chezmoi \
   as'completion' blockf mv'chezmoi.zsh -> _chezmoi' https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
 
-zi for \
+zinit for \
   from'gh-r' sbin'docker* -> docker-compose' docker/compose
 
-zi for \
+zinit for \
   from'gh-r' sbin'**/fd -> fd' @sharkdp/fd \
   as'completion' blockf https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
 
-zi for \
+zinit for \
   from'gh-r' sbin'**/rg -> rg' BurntSushi/ripgrep \
   as'completion' blockf https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg
 
-zi for \
+zinit for \
   from'gh-r' sbin'yq* -> yq' mikefarah/yq \
-  as'completion' blockf atclone'yq shell-completion zsh > _yq; zi creinstall yq--completion' atpull'%atclone' run-atpull id-as'yq--completion' z-shell/0
+  as'completion' blockf atclone'yq shell-completion zsh > _yq; zinit creinstall yq--completion' atpull'%atclone' run-atpull id-as'yq--completion' z-shell/0
 
-zi for \
+zinit for \
   from'gh-r' bpick'*tar.gz' sbin'**/gh -> gh' cli/cli \
-  as'completion' blockf atclone'gh completion -s zsh > _gh; zi creinstall gh--completion' atpull'%atclone' run-atpull id-as'gh--completion' z-shell/0
+  as'completion' blockf atclone'gh completion -s zsh > _gh; zinit creinstall gh--completion' atpull'%atclone' run-atpull id-as'gh--completion' z-shell/0
 
-zi for \
+zinit for \
   from'gh-r' sbin'**/flux -> flux' fluxcd/flux2 \
-  has'flux' as'completion' blockf atclone'flux completion zsh > _flux; zi creinstall flux--completion' atpull'%atclone' run-atpull id-as'flux--completion' z-shell/0
+  has'flux' as'completion' blockf atclone'flux completion zsh > _flux; zinit creinstall flux--completion' atpull'%atclone' run-atpull id-as'flux--completion' z-shell/0
 
-zi from'gh-r' for \
+zinit from'gh-r' for \
   sbin'**/bat -> bat' @sharkdp/bat \
   sbin'**/delta -> delta' dandavison/delta \
   sbin'**/clangd -> clangd' clangd/clangd \
   bpick'*x64.tar.gz' sbin'**/lua-language-server' sumneko/lua-language-server \
   sbin'**/lazygit' jesseduffield/lazygit \
-  bpick'*tar.gz' ver'v0.7.0' sbin'**/bin/nvim -> nvim' neovim/neovim
+  bpick'*tar.gz' ver'stable' sbin'**/bin/nvim -> nvim' neovim/neovim
 
-zi for \
+zinit for \
   djui/alias-tips
 
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
-zicompinit
-zicdreplay
+autoload -Uz compinit
+compinit
+zinit cdreplay -q
 
+source "$HOME/.zsh/init.zsh"
 source "$HOME/.zsh/keys.zsh"
 source "$HOME/.zsh/aliases.zsh"
