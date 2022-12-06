@@ -45,43 +45,43 @@ zinit for \
   as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
 zinit for \
-  from'gh-r' sbin'**/exa -> exa' ogham/exa \
+  from'gh-r' sbin'**/exa -> exa' nocompile ogham/exa \
   as'completion' blockf https://github.com/ogham/exa/blob/master/completions/zsh/_exa
 
 zinit for \
-  from'gh-r' sbin'chezmoi* -> chezmoi' twpayne/chezmoi \
+  from'gh-r' sbin'chezmoi* -> chezmoi' nocompile twpayne/chezmoi \
   as'completion' blockf mv'chezmoi.zsh -> _chezmoi' https://github.com/twpayne/chezmoi/blob/master/completions/chezmoi.zsh
 
 zinit for \
-  from'gh-r' sbin'docker* -> docker-compose' docker/compose
+  from'gh-r' sbin'docker* -> docker-compose' nocompile docker/compose
 
 zinit for \
-  from'gh-r' sbin'**/fd -> fd' @sharkdp/fd \
+  from'gh-r' sbin'**/fd -> fd' nocompile @sharkdp/fd \
   as'completion' blockf https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
 
 zinit for \
-  from'gh-r' sbin'**/rg -> rg' BurntSushi/ripgrep \
+  from'gh-r' sbin'**/rg -> rg' nocompile BurntSushi/ripgrep \
   as'completion' blockf https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg
 
 zinit for \
-  from'gh-r' sbin'yq* -> yq' mikefarah/yq \
+  from'gh-r' sbin'yq* -> yq' nocompile mikefarah/yq \
   as'completion' blockf atclone'yq shell-completion zsh > _yq; zinit creinstall yq--completion' atpull'%atclone' run-atpull id-as'yq--completion' z-shell/0
 
 zinit for \
-  from'gh-r' bpick'*tar.gz' sbin'**/gh -> gh' cli/cli \
+  from'gh-r' bpick'*tar.gz' sbin'**/gh -> gh' nocompile cli/cli \
   as'completion' blockf atclone'gh completion -s zsh > _gh; zinit creinstall gh--completion' atpull'%atclone' run-atpull id-as'gh--completion' z-shell/0
 
 zinit for \
-  from'gh-r' sbin'**/flux -> flux' fluxcd/flux2 \
+  from'gh-r' sbin'**/flux -> flux' nocompile fluxcd/flux2 \
   has'flux' as'completion' blockf atclone'flux completion zsh > _flux; zinit creinstall flux--completion' atpull'%atclone' run-atpull id-as'flux--completion' z-shell/0
 
 zinit from'gh-r' for \
-  sbin'**/bat -> bat' @sharkdp/bat \
-  sbin'**/delta -> delta' dandavison/delta \
-  sbin'**/clangd -> clangd' clangd/clangd \
-  bpick'*x64.tar.gz' sbin'**/lua-language-server' sumneko/lua-language-server \
-  sbin'**/lazygit' jesseduffield/lazygit \
-  bpick'*tar.gz' ver'stable' sbin'**/bin/nvim -> nvim' neovim/neovim
+  sbin'**/bat -> bat' nocompile @sharkdp/bat \
+  sbin'**/delta -> delta' nocompile dandavison/delta \
+  sbin'**/clangd -> clangd' nocompile clangd/clangd \
+  bpick'*x64.tar.gz' sbin'**/lua-language-server' nocompile sumneko/lua-language-server \
+  sbin'**/lazygit' nocompile jesseduffield/lazygit \
+  bpick'*tar.gz' ver'stable' sbin'**/bin/nvim -> nvim' nocompile neovim/neovim
 
 zinit for \
   djui/alias-tips

@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local opts = { noremap=true, silent=true }
 -- Use an on_attach function to only map the following keys
