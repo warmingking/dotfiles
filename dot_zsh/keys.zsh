@@ -1,4 +1,4 @@
-bindkey -v
+bindkey -e
 bindkey '\ew' kill-region
 bindkey -s '\el' "ls\n"
 bindkey "^[[5~" up-line-or-history
