@@ -19,15 +19,15 @@ if [[ ${PAGER} == 'less' ]]; then
     (( ! ${+LESS_TERMCAP_us} )) && export LESS_TERMCAP_us=$'\E[1;32m'   # Begins underline.
 fi
 
-# if exa exist, alias to ls
-if (( ${+commands[exa]} )); then
-    alias ls='exa'
+# if eza exist, alias to ls
+if (( ${+commands[eza]} )); then
+    alias ls='eza'
     alias l='ls'
-    alias ll='exa -l'
-    alias lll='exa -l | less'
-    alias lla='exa -la'
-    alias llt='exa -T'
-    alias llfu='exa -bghHliS --git'
+    alias ll='eza -l'
+    alias lll='eza -l | less'
+    alias lla='eza -la'
+    alias llt='eza -T'
+    alias llfu='eza -bghHliS --git'
 else
     alias l='ls -1A'         # Lists in one column, hidden files.
     alias ll='ls -lh'        # Lists human readable sizes.
@@ -72,4 +72,8 @@ if (( $+commands[chezmoi] )); then
     alias czadd="chezmoi add -v"
     alias czd="chezmoi diff"
     alias czl="chezmoi git log"
+fi
+
+if [[ ${TERM} == 'foot' ]]; then
+    alias ssh="TERM=xterm-256color ssh"
 fi

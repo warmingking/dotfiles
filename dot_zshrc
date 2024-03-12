@@ -45,8 +45,8 @@ zinit for \
   as'completion' blockf https://github.com/asdf-vm/asdf/blob/master/completions/_asdf
 
 zinit for \
-  from'gh-r' sbin'**/exa -> exa' nocompile ogham/exa \
-  as'completion' blockf https://github.com/ogham/exa/blob/master/completions/zsh/_exa
+  from'gh-r' sbin'**/eza -> eza' nocompile eza-community/eza \
+  as'completion' blockf https://github.com/eza-community/eza/blob/main/completions/zsh/_eza
 
 zinit for \
   from'gh-r' sbin'chezmoi* -> chezmoi' nocompile twpayne/chezmoi \
@@ -61,7 +61,7 @@ zinit for \
 
 zinit for \
   from'gh-r' sbin'**/rg -> rg' nocompile BurntSushi/ripgrep \
-  as'completion' blockf https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg
+  as'completion' blockf atclone'rg --generate complete-zsh > _rg; zinit creinstall rg--completion' atpull'%atclone' run-atpull id-as'rg--completion' z-shell/0
 
 zinit for \
   from'gh-r' sbin'yq* -> yq' nocompile mikefarah/yq \
@@ -81,7 +81,7 @@ zinit from'gh-r' for \
   sbin'**/clangd -> clangd' nocompile clangd/clangd \
   bpick'*x64.tar.gz' sbin'**/lua-language-server' nocompile LuaLS/lua-language-server \
   sbin'**/lazygit' nocompile jesseduffield/lazygit \
-  bpick'*tar.gz' ver'stable' sbin'**/bin/nvim -> nvim' nocompile neovim/neovim
+  bpick'*tar.gz' sbin'**/bin/nvim -> nvim' nocompile neovim/neovim
 
 zinit for \
   djui/alias-tips
